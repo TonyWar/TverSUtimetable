@@ -1,9 +1,10 @@
 import React, {Component} from 'react'
+import PageHeader from './page-header'
 
 class PageComponent extends Component {
     render() {
         return (
-            <h1> Hello </h1>
+            <PageHeader/>
         )
     }
 }
