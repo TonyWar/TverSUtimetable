@@ -1,5 +1,5 @@
 import { GET_TIMETABLES_REQUEST } from '../constants/action-types'
 
-export function getFaculties() {
-    return ({ type: GET_TIMETABLES_REQUEST })
+export function getTimetables(facultyID) {
+    return ({ type: GET_TIMETABLES_REQUEST, payload: facultyID })
 }

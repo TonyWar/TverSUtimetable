@@ -7,6 +7,7 @@ import reducer from '../reducers'
 import root from '../sagas/root'
 
 import '../resources/styl/style.styl'
+import '../resources/css/style.css'
 
 import PageComponent from './pages/page-component'
 
