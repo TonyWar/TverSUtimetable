@@ -67,33 +67,45 @@ class PageHeader extends Component {
     render() {
         return (
             <div>
-                <h1> Header </h1>
-                <div className='header-logo' />
-                <div>
-                    <h2> Факультет </h2>
-                    <select defaultChecked='-1' onChange={this.handleChangeFaculty}>
-                        <option value='-1'> Выберите факультет </option>
-                        { this.props.faculties.map((items, key) => (
-                            <option key={key} value={key}> {items.name} </option>
-                        ))}
-                    </select>
-                    <select defaultChecked='-1' onChange={this.handleChangeSemester}>
-                        <option value='-1'> Выберите семестр </option>
-                        { this.props.semesters.map((item, key) => (
-                            <option key={key} value={key}> {item.year + ' ' + item.semester} </option>
-                        ))}
-                    </select>
-                    <select onChange={this.handleChangeLevel}>
-                        { this.levels.map((level, key) => (
-                            <option key={key} value={key}>{level}</option>
-                        ))}
-                    </select>
-                    <select onChange={this.handleChangeCourse}>
-                        { this.state.courses.map((course, key) => (
-                            <option key={key} value={course}>{course}</option>
-                        ))}
-                    </select>
-                </div>
+                <header className='header'>
+                    <div/>
+                    <div>
+                        <div className='header-logo' />
+                        <div>
+                            <select defaultChecked='-1' onChange={this.handleChangeFaculty}>
+                                <option value='-1'> Выберите факультет </option>
+                                { this.props.faculties.map((items, key) => (
+                                    <option key={key} value={key}> {items.name} </option>
+                                ))}
+                            </select>
+                        </div>
+                        <div>
+                            <select defaultChecked='-1' onChange={this.handleChangeSemester}>
+                                <option value='-1'> Выберите семестр </option>
+                                { this.props.semesters.map((item, key) => (
+                                    <option key={key} value={key}> {item.year + ' ' + item.semester} </option>
+                                ))}
+                            </select>
+                        </div>
+                        <div>
+                            <select onChange={this.handleChangeLevel}>
+                                { this.levels.map((level, key) => (
+                                    <option key={key} value={key}>{level}</option>
+                                ))}
+                            </select>
+                        </div>
+                        <div>
+                            <select onChange={this.handleChangeCourse}>
+                                { this.state.courses.map((course, key) => (
+                                    <option key={key} value={course}>{course}</option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
+                    <div/>
+                </header>
+                
+                <div />
             </div>
         )
     }

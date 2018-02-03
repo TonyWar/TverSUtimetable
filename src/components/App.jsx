@@ -6,10 +6,11 @@ import createSagaMiddleware from 'redux-saga'
 import reducer from '../reducers'
 import root from '../sagas/root'
 
-import '../resources/styl/style.styl'
+
 import '../resources/css/style.css'
 
 import PageComponent from './pages/page-component'
+import TestPageComponent from './test/t-page-component'
 
 const sagaMiddleware = createSagaMiddleware()
 
@@ -29,6 +30,7 @@ class App extends Component {
             <Provider store={store}>
                 <Router>
                     <Switch>
+                        <Route path='/test' component={TestPageComponent}/>
                         <Route path='/' component={PageComponent}/>
                     </Switch>
                 </Router>
