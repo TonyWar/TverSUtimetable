@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import { getFaculties } from '../../actions/faculties-actions'
 import { getTimetables } from '../../actions/timetables-actions'
+import {changeField} from '../../actions/form-actions'
 import PropTypes from 'prop-types'
 import axios from 'axios'
 
@@ -36,7 +37,8 @@ class PageHeader extends Component {
     handleChangeFaculty = e => {
         if (e.target.value === '-1') return
         this.props.getTimetables(this.props.faculties[e.target.value]._id)
-        this.setState({faculty: e.target.value})
+        this.props.changeField('faculty', e.target.value)
+        // this.setState({faculty: e.target.value})
     }
 
     handleChangeLevel = e => {
@@ -71,15 +73,15 @@ class PageHeader extends Component {
                     <div/>
                     <div>
                         <div className='header-logo' />
-                        <div>
-                            <select defaultChecked='-1' onChange={this.handleChangeFaculty}>
+                        <div className='select'>
+                            <select value={this.props.fields.faculty} onChange={this.handleChangeFaculty}>
                                 <option value='-1'> Выберите факультет </option>
                                 { this.props.faculties.map((items, key) => (
                                     <option key={key} value={key}> {items.name} </option>
                                 ))}
                             </select>
                         </div>
-                        <div>
+                        <div className='select'>
                             <select defaultChecked='-1' onChange={this.handleChangeSemester}>
                                 <option value='-1'> Выберите семестр </option>
                                 { this.props.semesters.map((item, key) => (
@@ -87,14 +89,14 @@ class PageHeader extends Component {
                                 ))}
                             </select>
                         </div>
-                        <div>
+                        <div className='select'>
                             <select onChange={this.handleChangeLevel}>
                                 { this.levels.map((level, key) => (
                                     <option key={key} value={key}>{level}</option>
                                 ))}
                             </select>
                         </div>
-                        <div>
+                        <div className='select'>
                             <select onChange={this.handleChangeCourse}>
                                 { this.state.courses.map((course, key) => (
                                     <option key={key} value={course}>{course}</option>
@@ -114,14 +116,17 @@ class PageHeader extends Component {
         getFaculties: PropTypes.func,
         getTimetables: PropTypes.func,
         faculties: PropTypes.array,
-        semesters: PropTypes.array
+        semesters: PropTypes.array,
+        fields: PropTypes.object,
+        changeField: PropTypes.func
     }
 }
 
 export default connect(
     state => ({
         faculties: state.faculties,
-        semesters: state.semesters
+        semesters: state.semesters,
+        fields: state.formFields
     }),
-    {getFaculties, getTimetables}
+    {getFaculties, getTimetables, changeField}
 )(PageHeader)

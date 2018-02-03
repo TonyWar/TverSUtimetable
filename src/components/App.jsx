@@ -8,6 +8,7 @@ import root from '../sagas/root'
 
 
 import '../resources/css/style.css'
+import 'bulma'
 
 import PageComponent from './pages/page-component'
 import TestPageComponent from './test/t-page-component'
