@@ -1,15 +1,20 @@
-import { GET_FACULTIES_SUCCESS, SET_FIELD } from '../constants/action-types'
+import { INIT_FACULTIES_LIST_SUCCESS, SET_FIELD, INIT_SEMESTERS_LIST_SUCCESS, INIT_LEVEL } from '../constants/action-types'
 
 const initialState = {
     faculty: '-1',
     semester: '-1',
-    level: '0',
+    level: '1',
     course: '1'
 }
 
 export default function formFields(state = initialState, action) {
     switch (action.type) {
-        case GET_FACULTIES_SUCCESS:
+        case INIT_SEMESTERS_LIST_SUCCESS:
+            return {
+                ...state,
+                semester: '0'
+            }
+        case INIT_FACULTIES_LIST_SUCCESS:
             for (let i = 0; i <= action.payload.length; i++) {
                 if (action.payload[i].abbr === 'ПМиК') {
                     return {
@@ -19,6 +24,11 @@ export default function formFields(state = initialState, action) {
                 }
             }
             return state
+        case INIT_LEVEL:
+            return {
+                ...state,
+                level: '1'
+            }
         case SET_FIELD:
             return {
                 ...state,

@@ -1,4 +1,4 @@
-import { GET_TIMETABLES_SUCCESS } from '../constants/action-types'
+import { GET_TIMETABLES_SUCCESS, INIT_SEMESTERS_LIST_SUCCESS } from '../constants/action-types'
 
 const initialState = [
 
@@ -6,6 +6,7 @@ const initialState = [
 
 export default function semesters(state = initialState, action) {
     switch (action.type) {
+        case INIT_SEMESTERS_LIST_SUCCESS:
         case GET_TIMETABLES_SUCCESS:
             const newState = []
             action.payload.forEach(item => {
