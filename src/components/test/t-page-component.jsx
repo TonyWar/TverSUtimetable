@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import '../../resources/styl/style.styl'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import {changeField, initTimetable} from '../../actions/form-actions'
+import {changeField, initTimetable, getTimetableOfFaculty, clearTimetable} from '../../actions/form-actions'
 import TestWeekComponent from './t-week-component'
 
 class TestPageComponent extends Component {
@@ -18,7 +18,8 @@ class TestPageComponent extends Component {
     handleChangeFaculty = e => {
         if (e.target.value === '-1') return
         this.props.changeField('faculty', e.target.value)
-        // Делаем запрос по факультету - обновляем данные
+        this.props.clearTimetable()
+        this.props.getTimetableOfFaculty(this.props.faculties[e.target.value]._id)
     }
 
     handleChangeSemester = e => {
@@ -91,7 +92,9 @@ class TestPageComponent extends Component {
         fields: PropTypes.object,
         courses: PropTypes.array,
         changeField: PropTypes.func,
-        initTimetable: PropTypes.func
+        initTimetable: PropTypes.func,
+        getTimetableOfFaculty: PropTypes.func,
+        clearTimetable: PropTypes.func
     }
 }
 
@@ -102,5 +105,5 @@ export default connect(
         fields: state.formFields,
         courses: state.courses
     }),
-    {changeField, initTimetable}
+    {changeField, initTimetable, getTimetableOfFaculty, clearTimetable}
 )(TestPageComponent)

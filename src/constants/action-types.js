@@ -32,3 +32,6 @@ export const INIT_LEVEL = 'INIT_LEVEL'
 // 4) Получение списка курсов и расписания
 export const INIT_SOME_TIMETABLE_SUCCESS = 'INIT_SOME_TIMETABLE_SUCCESS'
 export const INIT_SOME_TIMETABLE_FAILED = 'INIT_SOME_TIMETABLE_FAILED'
+
+// Сброс расписания
+export const CLEAR_TIMETABLE = 'CLEAR_TIMETABLE'

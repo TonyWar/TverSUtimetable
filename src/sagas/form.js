@@ -3,18 +3,17 @@ import * as ActionTypes from '../constants/action-types'
 import * as FacultyApi from '../api/faculties-api'
 import * as TimetableApi from '../api/timetables-api'
 
-export function* initFaculties() {
+export function* initFaculties(action) {
     try {
         const response = yield call(FacultyApi.getFaculties)
-        yield put({ type: ActionTypes.INIT_FACULTIES_LIST_SUCCESS, payload: response })
+        if (!action.payload) {
+            yield put({ type: ActionTypes.INIT_FACULTIES_LIST_SUCCESS, payload: response })
+        }
+
+        const facultyID = action.payload || '5a2c622731531ab838dccde4'
 
         // Поиск ПМК, чтобы найти список семестров
-        for (let i = 0; i <= response.length; i++) {
-            if (response[i].abbr === 'ПМиК') {
-                yield put({ type: ActionTypes.INIT_SEMESTERS_LIST_REQUEST, payload: response[i]._id })
-                break
-            }
-        }
+        yield put({ type: ActionTypes.INIT_SEMESTERS_LIST_REQUEST, payload: facultyID })
     } catch (e) {
         yield put({ type: ActionTypes.INIT_FACULTIES_LIST_FAILED, message: e.message })
     }
