@@ -1,14 +1,13 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import {changeField} from '../../actions/form-actions'
 
 class FacultySelect extends Component {
     handleChangeFaculty = e => {
         if (e.target.value === '-1') return
         console.log('Выбран факультет: ', this.props.faculties[e.target.value])
-        // this.props.changeField('faculty', e.target.value)
-        // this.props.clearTimetable()
-        // this.props.getTimetableOfFaculty(this.props.faculties[e.target.value]._id)
+        this.props.changeField('faculty', e.target.value, this.props.faculties[e.target.value])
     }
     render() {
         return (
@@ -25,7 +24,8 @@ class FacultySelect extends Component {
 
     static propTypes = {
         faculties: PropTypes.array,
-        selectedFaculty: PropTypes.string
+        selectedFaculty: PropTypes.string,
+        changeField: PropTypes.func
     }
 }
 
@@ -33,5 +33,6 @@ export default connect(
     state => ({
         faculties: state.faculties,
         selectedFaculty: state.formFields.faculty
-    })
+    }),
+    {changeField}
 )(FacultySelect)

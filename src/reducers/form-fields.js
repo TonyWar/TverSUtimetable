@@ -1,10 +1,10 @@
-import { FIRST_LOAD_PAGE_SUCCESS } from '../constants/action-types'
+import { FIRST_LOAD_PAGE_SUCCESS, CHANGE_FIELD_VALUE, FACULTY_CHANGED } from '../constants/action-types'
 
 const initialState = {
     faculty: '-1',
     semester: '-1',
-    level: '1',
-    course: '1'
+    level: '-1',
+    course: '-1'
 }
 
 export default function formFields(state = initialState, action) {
@@ -14,6 +14,13 @@ export default function formFields(state = initialState, action) {
         //         ...state,
         //         semester: '0'
         //     }
+        case FACULTY_CHANGED:
+            return {
+                ...state,
+                semester: '-1',
+                level: '-1',
+                course: '-1'
+            }
         case FIRST_LOAD_PAGE_SUCCESS:
             const facultyIDforChecking = localStorage.facultyID || '5a2c622731531ab838dccde4'
             if (facultyIDforChecking !== localStorage.facultyID) {
@@ -23,7 +30,8 @@ export default function formFields(state = initialState, action) {
                 if (action.payload.faculties[i]._id === facultyIDforChecking) {
                     return {
                         ...state,
-                        faculty: i + ''
+                        faculty: i + '',
+                        semester: '0'
                     }
                 }
             }
@@ -33,11 +41,11 @@ export default function formFields(state = initialState, action) {
         //         ...state,
         //         level: '1'
         //     }
-        // case SET_FIELD:
-        //     return {
-        //         ...state,
-        //         [action.field]: action.value
-        //     }
+        case CHANGE_FIELD_VALUE:
+            return {
+                ...state,
+                [action.field]: action.value
+            }
         default:
             return state
     }
