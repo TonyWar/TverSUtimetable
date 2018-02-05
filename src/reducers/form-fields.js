@@ -1,4 +1,4 @@
-import {  } from '../constants/action-types'
+import { FIRST_LOAD_PAGE_SUCCESS } from '../constants/action-types'
 
 const initialState = {
     faculty: '-1',
@@ -14,16 +14,20 @@ export default function formFields(state = initialState, action) {
         //         ...state,
         //         semester: '0'
         //     }
-        // case INIT_FACULTIES_LIST_SUCCESS:
-        //     for (let i = 0; i <= action.payload.length; i++) {
-        //         if (action.payload[i].abbr === 'ПМиК') {
-        //             return {
-        //                 ...state,
-        //                 faculty: i + ''
-        //             }
-        //         }
-        //     }
-        //     return state
+        case FIRST_LOAD_PAGE_SUCCESS:
+            const facultyIDforChecking = localStorage.facultyID || '5a2c622731531ab838dccde4'
+            if (facultyIDforChecking !== localStorage.facultyID) {
+                localStorage.facultyID = facultyIDforChecking
+            }
+            for (let i = 0; i <= action.payload.faculties.length; i++) {
+                if (action.payload.faculties[i]._id === facultyIDforChecking) {
+                    return {
+                        ...state,
+                        faculty: i + ''
+                    }
+                }
+            }
+            return state
         // case INIT_LEVEL:
         //     return {
         //         ...state,

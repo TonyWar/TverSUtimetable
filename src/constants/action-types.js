@@ -1,0 +1,6 @@
+export const FIRST_LOAD_PAGE = 'FIRST_LOAD_PAGE'
+export const FIRST_LOAD_PAGE_SUCCESS = 'FIRST_LOAD_PAGE_SUCCESS'
+export const FIRST_LOAD_PAGE_FAILED = 'FIRST_LOAD_PAGE_FAILED'
+
+// Изменение полей формы
+export const CHANGE_FIELD_VALUE = 'CHANGE_FIELD_VALUE'
