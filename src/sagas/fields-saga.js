@@ -10,6 +10,11 @@ export function* fieldChanged(action) {
                 const response = yield call(Api.getTimetables, action.data._id)
                 yield put({type: ActionTypes.FACULTY_CHANGED, payload: response})
                 break
+            case 'semester':
+                console.log(action.data)
+                const responseSemester = yield call(Api.getTimetable, action.data.year, action.data.semester, action.data.ID)
+                console.log(responseSemester)
+                break
             default:
                 break
         }
