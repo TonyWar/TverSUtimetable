@@ -1,10 +1,11 @@
 import React, {Component} from 'react'
+import Header from './header'
 
 class PageComponent extends Component {
     render() {
-        return (
-            <h1>Hello</h1>
-        )
+        return [
+            <Header key={0} />
+        ]
     }
 }
 
