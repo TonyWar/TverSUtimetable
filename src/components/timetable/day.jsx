@@ -1,37 +1,57 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import DayHeader from './day-header'
-
-const containerStyle = {
-    display: 'grid',
-    gridTemplateColumns: '6rem auto',
-    gridTemplateRows: '3rem'
-}
+import DayLine from './day-line'
 
 class DayTimetable extends Component {
     constructor(props) {
         super(props)
     }
     render() {
-        console.log(this.props.directions)
-        console.log(this.props.data)
-        const subContainerStyle = {
-            display: 'grid',
-            gridTemplateColumns: 'repeat(' + this.props.directions.length + ', auto)',
-            gridTemplateRows: '3rem',
-            textAlign: 'center'
-        }
+        // console.log(this.props.directions)
+        // console.log(this.props.data)
+        const colSpans = [1]
+        this.props.directions.forEach(element => {
+            colSpans.push(1)    
+        })
+
+        this.props.data.forEach(line => {
+            if (!line) return
+            for (let index = 1; index <= this.props.directions.length; index++) {
+                line[index] && line[index].lessons.forEach(lesson => {
+                    if (lesson.subgroup === 1 || lesson.subgroup === 2) {
+                        colSpans[index] = 2
+                    }
+                    if (lesson.subgroup > 2 && lesson.subgroup > colSpans[index]) {
+                        colSpans[index] = lesson.subgroup
+                    }
+                })
+            }
+        })
+        // console.log('col span', colSpans)
+
         return (
             <div>
                 <DayHeader title={this.props.title} />
-                <div style={containerStyle}>
-                    <div/>
-                    <div style={subContainerStyle}> 
-                        {this.props.directions.map((direction, key) => (
-                            <div>{direction.name}</div>
+                <table className='table is-bordered is-fullwidth'> 
+                    <thead>
+                        <tr>
+                            <th />
+                            {this.props.directions.map((direction, key) => (
+                                <th key={key} colSpan={colSpans[key + 1]}> {direction.name} </th>
+                            ))}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {this.props.data.map((line, key) => (
+                            <DayLine
+                                data = {line}
+                                key = {key}
+                                colSpans = {colSpans}
+                            />
                         ))}
-                    </div>
-                </div>
+                    </tbody>
+                </table>
             </div>
         )
     }
