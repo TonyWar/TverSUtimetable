@@ -1,8 +1,26 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import DayItem from './day-item'
 
 class DayLine extends Component {
+    generateDirectionCells(lineIndex, direction, sum) {
+        const arr = []
+        for (let i = 0; i < this.props.colSpans[direction]; i++) {
+            arr.push(<td key={sum + i}> строка {lineIndex} подстолбец {i} направление {direction} </td>)
+        }
+        return arr
+    }
+
+    generateLineCells(lineIndex) {
+        const line = []
+        let sum = 0
+        this.props.data.forEach((item, i) => {
+            if (i === 0) return
+            line.push(...this.generateDirectionCells(lineIndex, i, sum))
+            sum += this.props.colSpans[i]
+        })
+        return line
+    }
+
     render() {
         // console.log('line', this.props.data)
         let rowSpan = 1
@@ -21,30 +39,43 @@ class DayLine extends Component {
                 }
             }
         })
+        for (let i = 0; i < rowSpan; i++) {
+            console.log(this.generateLineCells(i))
+        }
+        console.log('sp')
         // console.log('rowSpan', rowSpan)
+        // const trArray = []
+        // const rowDirections = []
+        // this.props.data.forEach((item, index) => {
+        //     if (index === 0) return
+        //     const directionCells = []
+        //     for (let i = 0; i < this.props.colSpans[index]; i++) {
+        //         directionCells.push(<td key={i}> ячейка {index} {i} </td>)
+        //     }
+        //     rowDirections.push(directionCells)
+        // })
+        // for (let i = 0; i < rowSpan; i++) {
+        //     trArray.push(
+        //         <tr key={i}>
+        //             {i === 0 && <td rowSpan={rowSpan}> {this.props.data[0]} </td>}
+        //             {this.props.data.map((item, index) => (
+        //                 index > 0 && this.generateLineCells(index)
+        //             ))}
+        //         </tr>
+        //     )
+        // }
+        // console.log(trArray)
+        // console.log('line', this.props.data)
+        // console.log('subcolspan', this.props.colSpans)
         const trArray = []
-        const rowDirections = []
-        this.props.data.forEach((item, index) => {
-            if (index === 0) return
-            const directionCells = []
-            for (let i = 0; i < this.props.colSpans[index]; i++) {
-                directionCells.push(<td key={i}> ячейка {index} {i} </td>)
-            }
-            rowDirections.push(directionCells)
-        })
         for (let i = 0; i < rowSpan; i++) {
             trArray.push(
                 <tr key={i}>
                     {i === 0 && <td rowSpan={rowSpan}> {this.props.data[0]} </td>}
-                    {this.props.data.map((item, index) => (
-                        index > 0 && rowDirections[index - 1]
-                    ))}
+                    {this.generateLineCells(i)}
                 </tr>
             )
         }
-        // console.log(trArray)
-        // console.log('line', this.props.data)
-        // console.log('subcolspan', this.props.colSpans)
         return trArray
     }
 
