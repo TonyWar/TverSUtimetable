@@ -11,11 +11,12 @@ class SemesterSelect extends Component {
             year: this.props.semesters[e.target.value].year,
             semester: this.props.semesters[e.target.value].semester
         })
-        console.log('Выбран семестр:', this.props.semesters[e.target.value].year + ' ' + this.props.semesters[e.target.value].semester)
-        // Делаем запрос по факультету и семестру
+        localStorage.year = this.props.semesters[e.target.value].year
+        localStorage.semester = this.props.semesters[e.target.value].semester
     }
 
     render() {
+        if (this.props.semesters.length === 0) { return null }
         return (
             <div className='navbar-item' >
                 <select className='select' value={this.props.fields.semester} onChange={this.handleChangeSemester}>

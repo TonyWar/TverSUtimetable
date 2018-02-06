@@ -6,8 +6,8 @@ import {changeField} from '../../actions/form-actions'
 class FacultySelect extends Component {
     handleChangeFaculty = e => {
         if (e.target.value === '-1') return
-        console.log('Выбран факультет: ', this.props.faculties[e.target.value])
         this.props.changeField('faculty', e.target.value, this.props.faculties[e.target.value])
+        localStorage.facultyID = this.props.faculties[e.target.value]._id
     }
     render() {
         return (

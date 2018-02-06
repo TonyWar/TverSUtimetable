@@ -17,8 +17,8 @@ export default function formFields(state = initialState, action) {
         case FACULTY_CHANGED:
             return {
                 ...state,
-                semester: '-1',
-                level: '-1',
+                semester: '0',
+                level: '1',
                 course: '-1'
             }
         case FIRST_LOAD_PAGE_SUCCESS:
@@ -26,12 +26,15 @@ export default function formFields(state = initialState, action) {
             if (facultyIDforChecking !== localStorage.facultyID) {
                 localStorage.facultyID = facultyIDforChecking
             }
+
             for (let i = 0; i <= action.payload.faculties.length; i++) {
                 if (action.payload.faculties[i]._id === facultyIDforChecking) {
                     return {
                         ...state,
                         faculty: i + '',
-                        semester: '0'
+                        semester: '0',
+                        level: '0',
+                        course: '0'
                     }
                 }
             }

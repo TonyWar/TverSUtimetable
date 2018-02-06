@@ -5,12 +5,14 @@ import formFields from './form-fields'
 import courses from './courses'
 import timetable from './timetable'
 import directions from './directions'
+import levels from './levels'
 
 const rootReducer = combineReducers({
     faculties,
     semesters,
-    formFields,
+    levels,
     courses,
+    formFields,
     timetable,
     directions
 })

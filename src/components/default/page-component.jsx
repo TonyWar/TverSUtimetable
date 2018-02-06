@@ -3,6 +3,7 @@ import Header from './header'
 import { connect } from 'react-redux'
 import {preloadPage} from '../../actions/preload'
 import PropTypes from 'prop-types'
+import TimeTable from './timetable'
 
 class PageComponent extends Component {
     componentDidMount() {
@@ -10,7 +11,8 @@ class PageComponent extends Component {
     }
     render() {
         return [
-            <Header key={0} />
+            <Header key={0} />,
+            <TimeTable key={1} />
         ]
     }
 
