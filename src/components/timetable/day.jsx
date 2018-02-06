@@ -8,8 +8,6 @@ class DayTimetable extends Component {
         super(props)
     }
     render() {
-        // console.log(this.props.directions)
-        // console.log(this.props.data)
         const colSpans = [1]
         this.props.directions.forEach(element => {
             colSpans.push(1)    
@@ -28,7 +26,6 @@ class DayTimetable extends Component {
                 })
             }
         })
-        // console.log('col span', colSpans)
 
         return (
             <div>

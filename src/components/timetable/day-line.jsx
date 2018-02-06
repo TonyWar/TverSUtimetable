@@ -22,7 +22,6 @@ class DayLine extends Component {
     }
 
     render() {
-        // console.log('line', this.props.data)
         let rowSpan = 1
         this.props.data.forEach((element, index) => {
             if (index > 0) {
@@ -39,34 +38,7 @@ class DayLine extends Component {
                 }
             }
         })
-        for (let i = 0; i < rowSpan; i++) {
-            console.log(this.generateLineCells(i))
-        }
-        console.log('sp')
-        // console.log('rowSpan', rowSpan)
-        // const trArray = []
-        // const rowDirections = []
-        // this.props.data.forEach((item, index) => {
-        //     if (index === 0) return
-        //     const directionCells = []
-        //     for (let i = 0; i < this.props.colSpans[index]; i++) {
-        //         directionCells.push(<td key={i}> ячейка {index} {i} </td>)
-        //     }
-        //     rowDirections.push(directionCells)
-        // })
-        // for (let i = 0; i < rowSpan; i++) {
-        //     trArray.push(
-        //         <tr key={i}>
-        //             {i === 0 && <td rowSpan={rowSpan}> {this.props.data[0]} </td>}
-        //             {this.props.data.map((item, index) => (
-        //                 index > 0 && this.generateLineCells(index)
-        //             ))}
-        //         </tr>
-        //     )
-        // }
-        // console.log(trArray)
-        // console.log('line', this.props.data)
-        // console.log('subcolspan', this.props.colSpans)
+
         const trArray = []
         for (let i = 0; i < rowSpan; i++) {
             trArray.push(
