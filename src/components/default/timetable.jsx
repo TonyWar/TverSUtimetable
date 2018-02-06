@@ -15,17 +15,21 @@ class TimeTable extends Component {
                 <DayTimetable
                     title = {day}
                     key = {key}
+                    data = {this.props.timetable[day]}
+                    directions = {this.props.directions}
                 />
             ))
         )
     }
     static propTypes = {
-        timetable: PropTypes.object
+        timetable: PropTypes.object,
+        directions: PropTypes.array
     }
 }
 
 export default connect(
     state => ({
-        timetable: state.timetable
+        timetable: state.timetable,
+        directions: state.directions
     })
 )(TimeTable)
