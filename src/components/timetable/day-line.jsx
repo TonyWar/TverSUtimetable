@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
+import DaySingleLine from './day-single-line'
 
 class DayLine extends Component {
     generateDirectionCells(lineIndex, direction, sum) {
@@ -21,6 +22,54 @@ class DayLine extends Component {
         return line
     }
 
+    generateDataForLines(data, rowSpan) {
+        const result = []
+        for (let i = 0; i < rowSpan; i++) {
+            const newData = []
+            for (let j = 0; j < data.length; j++) {
+                if (j === 0 && i === 0) {
+                    newData.push(data[j])    
+                } else if (data[j] === null) {
+                    newData.push(null)
+                } else if (data[j][0].subgroup === 0) {
+                    newData.push(data[j][0])
+                    data[j].splice(0, 1)
+                    if (data[j].length === 0) {
+                        data[j] = null
+                    }
+                } else if (data[j].length > 1 && data[j][0].subgroup === 2 && data[j][1].subgroup === 1) {
+                    newData.push([data[j][1], data[j][0]])
+                    data[j].splice(0, 2)
+                    if (data[j].length === 0) {
+                        data[j] = null
+                    }
+                } else if (data[j].length > 1 && data[j][0].subgroup === 1 && data[j][1].subgroup === 2) {
+                    newData.push([data[j][0], data[j][1]])
+                    data[j].splice(0, 2)
+                    if (data[j].length === 0) {
+                        data[j] = null
+                    }
+                } else if ((data[j].length > 1 && data[j][0].subgroup === 2 && data[j][1].subgroup !== 1) || (data[j].length === 1 && data[j][0].subgroup === 2)) {
+                    newData.push([null, data[j][0]])
+                    data[j].splice(0, 1)
+                    if (data[j].length === 0) {
+                        data[j] = null
+                    }
+                } else if ((data[j].length > 1 && data[j][0].subgroup === 1 && data[j][1].subgroup !== 2) || (data[j].length === 1 && data[j][0].subgroup === 1)) {
+                    newData.push([data[j][0], null])
+                    data[j].splice(0, 1)
+                    if (data[j].length === 0) {
+                        data[j] = null
+                    }
+                } else {
+                    newData.push(null)
+                }
+            }
+            result.push(newData)
+        }
+        return result
+    }
+
     render() {
         let rowSpan = 1
         this.props.data.forEach((element, index) => {
@@ -40,12 +89,31 @@ class DayLine extends Component {
         })
 
         const trArray = []
+        // for (let i = 0; i < rowSpan; i++) {
+        //     trArray.push(
+        //         <tr key={i}>
+        //             {i === 0 && <td rowSpan={rowSpan}> {this.props.data[0]} </td>}
+        //             {this.generateLineCells(i)}
+        //         </tr>
+        //     )
+        // }
+        const data = []
+        this.props.data.forEach((element, index) => {
+            if (index === 0) {data.push(element)}
+            else if (element === null) {data.push(null)}
+            else data.push(element.lessons)
+        })
+        console.log('1 converted', data)
+        const newData = this.generateDataForLines(data, rowSpan)
         for (let i = 0; i < rowSpan; i++) {
             trArray.push(
-                <tr key={i}>
-                    {i === 0 && <td rowSpan={rowSpan}> {this.props.data[0]} </td>}
-                    {this.generateLineCells(i)}
-                </tr>
+                <DaySingleLine
+                    key = {i}
+                    lineNumber = {i}
+                    rowSpan = {rowSpan}
+                    data = {newData}
+                    colSpans = {this.props.colSpans}
+                />
             )
         }
         return trArray
