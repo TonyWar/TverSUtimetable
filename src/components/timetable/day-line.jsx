@@ -28,8 +28,10 @@ class DayLine extends Component {
             const newData = []
             for (let j = 0; j < data.length; j++) {
                 if (j === 0 && i === 0) {
+                    // Ячейка времени
                     newData.push(data[j])    
                 } else if (data[j] === null) {
+                    // Пустая ячейка
                     newData.push(null)
                 } else if (data[j][0].subgroup === 0) {
                     newData.push(data[j][0])
@@ -101,9 +103,66 @@ class DayLine extends Component {
         this.props.data.forEach((element, index) => {
             if (index === 0) {data.push(element)}
             else if (element === null) {data.push(null)}
-            else data.push(element.lessons)
+            else {
+                const lessons = []
+                element.lessons.forEach((lesson, lessonIndex) => {
+                    lesson.rowSpan = 1
+                    lesson.colSpan = 1
+                    lessons.push(lesson)
+                    // console.log('lesson for check', lesson)
+                    // устанока colSpan
+                    if (lesson.subgroup === 0) {
+                        lesson.colSpan = this.props.colSpans[index]
+                        // если слева есть такой же предмет, то colSpan = 0
+                        if (this.props.data[index - 1] && this.props.data[index - 1].lessons) {
+                            // console.log('слева есть предметы')
+                            this.props.data[index - 1].lessons.forEach(tlesson => {
+                                // console.log('например ', tlesson)
+                                if ( 
+                                    (tlesson.auditory && lesson.auditory && lesson.auditory._id === tlesson.auditory._id || (!tlesson.auditory && !lesson.auditory))
+                                    && (tlesson.subject && lesson.subject && tlesson.subject._id === lesson.subject._id || (!tlesson.subject && !lesson.subject))
+                                    && (tlesson.teacher && lesson.teacher && tlesson.teacher._id === lesson.teacher._id || (!tlesson.teacher && !lesson.teacher))
+                                    && (tlesson.subgroup === lesson.subgroup)
+                                    && (tlesson.plus_minus === lesson.plus_minus)
+                                ) {
+                                    // слева есть такой же предмет, значит здесть colspan = 0
+                                    lesson.colSpan = 0
+                                }
+                            })
+                        }
+                        if (lesson.colSpan !== 0) {
+                            // добавляем ширину за счёт элементов справа
+                            for (let hardIndex = index + 1; hardIndex < this.props.data.length; hardIndex++) {
+                                if (!this.props.data[hardIndex]) break
+                                this.props.data[hardIndex].lessons.forEach(tlesson => {
+                                    // console.log('например ', tlesson)
+                                    if ( 
+                                        (tlesson.auditory && lesson.auditory && lesson.auditory._id === tlesson.auditory._id || (!tlesson.auditory && !lesson.auditory))
+                                        && (tlesson.subject && lesson.subject && tlesson.subject._id === lesson.subject._id || (!tlesson.subject && !lesson.subject))
+                                        && (tlesson.teacher && lesson.teacher && tlesson.teacher._id === lesson.teacher._id || (!tlesson.teacher && !lesson.teacher))
+                                        && (tlesson.subgroup === lesson.subgroup)
+                                        && (tlesson.plus_minus === lesson.plus_minus)
+                                    ) {
+                                        // слева есть такой же предмет, значит здесть colspan ++
+                                        lesson.colSpan += this.props.colSpans[hardIndex]
+                                    }
+                                })
+                            }
+                        }
+                    }
+                }) 
+                lessons.sort((a, b) => {
+                    if (a.colSpan === b.colSpan) return 0
+                    if (a.colSpan === 0) return -1
+                    if (b.colSpan === 0) return 1
+                    if (a.colSpan > this.props.colSpans[index]) return -1
+                    if (b.colSpan > this.props.colSpans[index]) return 1
+                    return 0
+                })
+                data.push(lessons) 
+            }
         })
-        console.log('1 converted', data)
+        // console.log('1 converted', data)
         const newData = this.generateDataForLines(data, rowSpan)
         for (let i = 0; i < rowSpan; i++) {
             trArray.push(

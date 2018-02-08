@@ -1,10 +1,23 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
+const nullStyle = {
+    borderBottom: 'none',
+    borderTop: 'none'
+}
+
+const firstNullStyle = {
+    borderBottom: 'none'
+}
+
+const lastNullStyle = {
+    borderTop: 'none'
+}
+
 class DayLineDirection extends Component {
     render() {
         const {lineNumber, data, rowSpan, colSpans, directionNumber} = this.props
-        console.log('direction item', data)
+        // console.log('direction item', data)
         if (lineNumber === 0 && directionNumber === 0) {
             return (
                 <td rowSpan={rowSpan} > { data[lineNumber][directionNumber] } </td>
@@ -12,18 +25,19 @@ class DayLineDirection extends Component {
         }
         if (directionNumber === 0 && lineNumber !== 0) {return null}
         const currentItem = data[lineNumber][directionNumber]
-        console.log('AAAAA', typeof(currentItem), currentItem)
+        
+        if (currentItem === null && lineNumber === 0 && data.length > 1) {
+            return (<td colSpan={colSpans[directionNumber]} style={firstNullStyle} />)
+        }
+        if (currentItem === null && lineNumber === data.length - 1) {
+            return (<td colSpan={colSpans[directionNumber]} style={lastNullStyle} />)
+        }
         if (currentItem === null) {
-            return (<td colSpan={colSpans[directionNumber]} />)
+            return (<td colSpan={colSpans[directionNumber]} style={nullStyle} />)
         }
-        if (currentItem.constructor === Object) {
-            return <td colSpan={colSpans[directionNumber]}>
-                {currentItem.subject && <p>{currentItem.subject.name}</p>}
-                {currentItem.teacher && <p>{currentItem.teacher.fio}</p>}
-                {currentItem.auditory && <p>{currentItem.auditory.name}</p>}
-                {currentItem.plus_minus !== '' && <p>{currentItem.plus_minus}</p>}
-            </td>
-        }
+        // if (currentItem === null) {
+        //     return (<td colSpan={colSpans[directionNumber]} />)
+        // }
         if (currentItem.constructor === Array) {
             return currentItem.map((item, key) => (
                 item ?
@@ -33,11 +47,22 @@ class DayLineDirection extends Component {
                         {currentItem[key].auditory && <p>{currentItem[key].auditory.name}</p>}
                         {currentItem[key].plus_minus !== '' && <p>{currentItem[key].plus_minus}</p>}
                     </td>
-                    : <td key={key}/>
+                    : <td key={key} style={nullStyle} />
             ))
         }
+        console.log('Element', currentItem.colSpan, currentItem)
+        if (currentItem.constructor === Object) {
+            if (currentItem.colSpan === 0) { return null }
+            return <td colSpan={currentItem.colSpan}>
+                {currentItem.subject && <p>{currentItem.subject.name}</p>}
+                {currentItem.teacher && <p>{currentItem.teacher.fio}</p>}
+                {currentItem.auditory && <p>{currentItem.auditory.name}</p>}
+                {currentItem.plus_minus !== '' && <p>{currentItem.plus_minus}</p>}
+            </td>
+        }
+
         return (
-            <td> Тяжело </td>
+            <td> Неизвестный доселе случай </td>
         )
     }
 
