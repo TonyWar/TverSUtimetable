@@ -8,6 +8,7 @@ class DayTimetable extends Component {
         super(props)
     }
     render() {
+        let totalColSpan = 0
         const colSpans = [1]
         this.props.directions.forEach(element => {
             colSpans.push(1)    
@@ -21,12 +22,21 @@ class DayTimetable extends Component {
                         colSpans[index] = 2
                     }
                     if (lesson.subgroup > 2 && lesson.subgroup > colSpans[index]) {
-                        colSpans[index] = lesson.subgroup
+                        colSpans[index] = lesson.subgroup   
                     }
                 })
             }
         })
-
+        for (let i = 1; i < colSpans.length; i++) {
+            totalColSpan += colSpans[i]
+        }
+        const crutch = []
+        for (let i = 1; i < colSpans.length; i++) {
+            for (let j = 0; j < colSpans[i]; j++) {
+                crutch.push(colSpans[i])
+            }
+        }
+        
         return (
             <div>
                 <DayHeader title={this.props.title} />
@@ -40,6 +50,15 @@ class DayTimetable extends Component {
                         </tr>
                     </thead>
                     <tbody>
+                        <tr style={{height: '0px'}} >
+                            <td style={{width: '10%', height: '0px', padding: '0'}} />
+                            {
+                                crutch.map((item, key) => (
+                                    (key > 0 && item === 1) ? <td style={{width: (90 / (colSpans.length - 1) / item) + '%', height: '0px', padding: '0'}} />
+                                        : <td style={{width: (90 / (colSpans.length - 1) / item) + '%', height: '0px', padding: '0'}} />
+                                ))
+                            }    
+                        </tr>
                         {this.props.data.map((line, key) => (
                             <DayLine
                                 data = {line}
