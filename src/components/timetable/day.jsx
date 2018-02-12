@@ -8,7 +8,6 @@ class DayTimetable extends Component {
         super(props)
     }
     render() {
-        let totalColSpan = 0
         const colSpans = [1]
         this.props.directions.forEach(element => {
             colSpans.push(1)    
@@ -27,16 +26,14 @@ class DayTimetable extends Component {
                 })
             }
         })
-        for (let i = 1; i < colSpans.length; i++) {
-            totalColSpan += colSpans[i]
-        }
+
         const crutch = []
         for (let i = 1; i < colSpans.length; i++) {
             for (let j = 0; j < colSpans[i]; j++) {
                 crutch.push(colSpans[i])
             }
         }
-        
+
         return (
             <div>
                 <DayHeader title={this.props.title} />
