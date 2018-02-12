@@ -48,11 +48,11 @@ class DayTimetable extends Component {
                     </thead>
                     <tbody>
                         <tr style={{height: '0px'}} >
-                            <td style={{width: '10%', height: '0px', padding: '0'}} />
+                            <td style={{width: '7%', height: '0px', padding: '0'}} />
                             {
                                 crutch.map((item, key) => (
-                                    (key > 0 && item === 1) ? <td style={{width: (90 / (colSpans.length - 1) / item) + '%', height: '0px', padding: '0'}} />
-                                        : <td style={{width: (90 / (colSpans.length - 1) / item) + '%', height: '0px', padding: '0'}} />
+                                    (key > 0 && item === 1) ? <td key={key} style={{width: (93 / (colSpans.length - 1) / item) + '%', height: '0px', padding: '0'}} />
+                                        : <td key={key} style={{width: (93 / (colSpans.length - 1) / item) + '%', height: '0px', padding: '0'}} />
                                 ))
                             }    
                         </tr>

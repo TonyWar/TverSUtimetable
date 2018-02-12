@@ -27,6 +27,8 @@ class DayLine extends Component {
         for (let i = 0; i < rowSpan; i++) {
             const newData = []
             for (let j = 0; j < data.length; j++) {
+                // let itemRowSpan = rowSpan
+                // console.log('itemRowSpan', itemRowSpan)
                 if (j === 0 && i === 0) {
                     // Ячейка времени
                     newData.push(data[j])    
@@ -34,30 +36,58 @@ class DayLine extends Component {
                     // Пустая ячейка
                     newData.push(null)
                 } else if (data[j][0].subgroup === 0) {
+                    // if (data[j].length === 1) {
+                    //     data[j][0].rowSpan = itemRowSpan
+                    //     if (data[j][0].subject)
+                    //         console.log('broken item', data[j][0].subject.name, itemRowSpan)
+                    // }
+                    // itemRowSpan--
+                    // if (data[j].length === 1) {
+                    //     data[j][0].rowSpan = rowSpan - newData.length + 1
+                    //     debugger
+                    // }
                     newData.push(data[j][0])
                     data[j].splice(0, 1)
                     if (data[j].length === 0) {
                         data[j] = null
                     }
                 } else if (data[j].length > 1 && data[j][0].subgroup === 2 && data[j][1].subgroup === 1) {
+                    // if (data[j].length === 2) {
+                    //     data[j][0].rowSpan = itemRowSpan
+                    //     data[j][1].rowSpan = itemRowSpan
+                    // }
+                    // itemRowSpan -= 2
                     newData.push([data[j][1], data[j][0]])
                     data[j].splice(0, 2)
                     if (data[j].length === 0) {
                         data[j] = null
                     }
                 } else if (data[j].length > 1 && data[j][0].subgroup === 1 && data[j][1].subgroup === 2) {
+                    // if (data[j].length === 2) {
+                    //     data[j][0].rowSpan = itemRowSpan
+                    //     data[j][1].rowSpan = itemRowSpan
+                    // }
+                    // itemRowSpan -= 2
                     newData.push([data[j][0], data[j][1]])
                     data[j].splice(0, 2)
                     if (data[j].length === 0) {
                         data[j] = null
                     }
                 } else if ((data[j].length > 1 && data[j][0].subgroup === 2 && data[j][1].subgroup !== 1) || (data[j].length === 1 && data[j][0].subgroup === 2)) {
+                    // if (data[j].length === 1) {
+                    //     data[j][0].rowSpan = itemRowSpan
+                    // }
+                    // itemRowSpan -= 1
                     newData.push([null, data[j][0]])
                     data[j].splice(0, 1)
                     if (data[j].length === 0) {
                         data[j] = null
                     }
                 } else if ((data[j].length > 1 && data[j][0].subgroup === 1 && data[j][1].subgroup !== 2) || (data[j].length === 1 && data[j][0].subgroup === 1)) {
+                    // if (data[j].length === 1) {
+                    //     data[j][0].rowSpan = itemRowSpan
+                    // }
+                    // itemRowSpan -= 1
                     newData.push([data[j][0], null])
                     data[j].splice(0, 1)
                     if (data[j].length === 0) {
@@ -68,6 +98,22 @@ class DayLine extends Component {
                 }
             }
             result.push(newData)
+        }
+        // console.log('result ', result)
+        for (let i = 0; i < result.length; i++) {
+            for (let j = 0; j < result[i].length; j++) {
+                if (i === 0 && j === 0) { continue }
+                if (result[i + 1] && result[i][j] && !result[i + 1][j]) {
+                    // console.log(result[i][j], result[i + 1][j], i)
+                    if (result[i][j].constructor === Array) {
+                        result[i][j].forEach(element => {
+                            element.rowSpan = rowSpan - i
+                        })
+                    } else {
+                        result[i][j].rowSpan = rowSpan - i
+                    }
+                }
+            }
         }
         return result
     }
@@ -162,6 +208,7 @@ class DayLine extends Component {
                 data.push(lessons) 
             }
         })
+
         // console.log('1 converted', data)
         const newData = this.generateDataForLines(data, rowSpan)
         for (let i = 0; i < rowSpan; i++) {
