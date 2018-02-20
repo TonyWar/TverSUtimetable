@@ -32,7 +32,7 @@ class DayLine extends Component {
                 if (j === 0 && i === 0) {
                     // Ячейка времени
                     newData.push(data[j])    
-                } else if (data[j] === null) {
+                } else if (data[j] === null || data[j].length === 0) {
                     // Пустая ячейка
                     newData.push(null)
                 } else if (data[j][0].subgroup === 0) {
@@ -107,7 +107,8 @@ class DayLine extends Component {
                     // console.log(result[i][j], result[i + 1][j], i)
                     if (result[i][j].constructor === Array) {
                         result[i][j].forEach(element => {
-                            element.rowSpan = rowSpan - i
+                            if (element)
+                                element.rowSpan = rowSpan - i
                         })
                     } else {
                         result[i][j].rowSpan = rowSpan - i

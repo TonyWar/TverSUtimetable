@@ -25,7 +25,7 @@ class DayLineDirection extends Component {
         }
         if (directionNumber === 0 && lineNumber !== 0) {return null}
         const currentItem = data[lineNumber][directionNumber]
-        // console.log('there is some item', data[0][directionNumber])
+        console.log('there is some item', data[0][directionNumber])
         if (data[0][directionNumber] && !currentItem) { return null }
 
         if (currentItem === null && lineNumber === 0 && data.length > 1) {
@@ -49,7 +49,7 @@ class DayLineDirection extends Component {
                     <td key={key} rowSpan={item.rowSpan} >
                         {currentItem[key].subject && <p>{currentItem[key].subject.name}</p>}
                         {currentItem[key].teacher && <p>{currentItem[key].teacher.fio}</p>}
-                        {currentItem[key].auditory && <p>{currentItem[key].auditory.name}</p>}
+                        {currentItem[key].auditory && <p> аудитория: {currentItem[key].auditory.name} корпус: {currentItem[key].auditory.housing}</p>}
                         {currentItem[key].plus_minus !== '' && <p>{currentItem[key].plus_minus}</p>}
                     </td>
                     : <td key={key} style={nullStyle} />
@@ -61,7 +61,7 @@ class DayLineDirection extends Component {
             return <td colSpan={currentItem.colSpan} rowSpan={currentItem.rowSpan} >
                 {currentItem.subject && <p>{currentItem.subject.name}</p>}
                 {currentItem.teacher && <p>{currentItem.teacher.fio}</p>}
-                {currentItem.auditory && <p>{currentItem.auditory.name}</p>}
+                {currentItem.auditory && <p> аудитория: {currentItem.auditory.name} корпус: {currentItem.auditory.housing}</p>}
                 {currentItem.plus_minus !== '' && <p>{currentItem.plus_minus}</p>}
             </td>
         }
