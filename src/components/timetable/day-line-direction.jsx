@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import TableCell from './table-cell'
 
 const nullStyle = {
     borderBottom: 'none',
@@ -25,7 +26,7 @@ class DayLineDirection extends Component {
         }
         if (directionNumber === 0 && lineNumber !== 0) {return null}
         const currentItem = data[lineNumber][directionNumber]
-        console.log('there is some item', data[0][directionNumber])
+        // console.log('there is some item', data[0][directionNumber])
         if (data[0][directionNumber] && !currentItem) { return null }
 
         if (currentItem === null && lineNumber === 0 && data.length > 1) {
@@ -46,24 +47,34 @@ class DayLineDirection extends Component {
         if (currentItem.constructor === Array) {
             return currentItem.map((item, key) => (
                 item ?
-                    <td key={key} rowSpan={item.rowSpan} >
-                        {currentItem[key].subject && <p>{currentItem[key].subject.name}</p>}
-                        {currentItem[key].teacher && <p>{currentItem[key].teacher.fio}</p>}
-                        {currentItem[key].auditory && <p> аудитория: {currentItem[key].auditory.name} корпус: {currentItem[key].auditory.housing}</p>}
-                        {currentItem[key].plus_minus !== '' && <p>{currentItem[key].plus_minus}</p>}
-                    </td>
+                    <TableCell 
+                        data = {currentItem[key]}
+                        rowSpan = {item.rowSpan}
+                        key = {key}
+                    />
+                    // <td key={key} rowSpan={item.rowSpan} >
+                    //     {currentItem[key].subject && <p>{currentItem[key].subject.name}</p>}
+                    //     {currentItem[key].teacher && <p>{currentItem[key].teacher.fio}</p>}
+                    //     {currentItem[key].auditory && <p> аудитория: {currentItem[key].auditory.name} корпус: {currentItem[key].auditory.housing}</p>}
+                    //     {currentItem[key].plus_minus !== '' && <p>{currentItem[key].plus_minus}</p>}
+                    // </td>
                     : <td key={key} style={nullStyle} />
             ))
         }
         // console.log('Element', currentItem.colSpan, currentItem.rowSpan, currentItem)
         if (currentItem.constructor === Object) {
             if (currentItem.colSpan === 0) { return null }
-            return <td colSpan={currentItem.colSpan} rowSpan={currentItem.rowSpan} >
-                {currentItem.subject && <p>{currentItem.subject.name}</p>}
-                {currentItem.teacher && <p>{currentItem.teacher.fio}</p>}
-                {currentItem.auditory && <p> аудитория: {currentItem.auditory.name} корпус: {currentItem.auditory.housing}</p>}
-                {currentItem.plus_minus !== '' && <p>{currentItem.plus_minus}</p>}
-            </td>
+            return <TableCell 
+                data = {currentItem}
+                rowSpan = {currentItem.rowSpan}
+                colSpan={currentItem.colSpan}
+            />
+            // return <td colSpan={currentItem.colSpan} rowSpan={currentItem.rowSpan} >
+            //     {currentItem.subject && <p>{currentItem.subject.name}</p>}
+            //     {currentItem.teacher && <p>{currentItem.teacher.fio}</p>}
+            //     {currentItem.auditory && <p> аудитория: {currentItem.auditory.name} корпус: {currentItem.auditory.housing}</p>}
+            //     {currentItem.plus_minus !== '' && <p>{currentItem.plus_minus}</p>}
+            // </td>
         }
 
         return (
