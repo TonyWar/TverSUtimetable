@@ -42,7 +42,7 @@ class DayTimetable extends Component {
                         <tr>
                             <th />
                             {this.props.directions.map((direction, key) => (
-                                <th key={key} colSpan={colSpans[key + 1]}> {direction.name} </th>
+                                <th key={key} colSpan={colSpans[key + 1]} style={{textAlign: 'center'}} > {direction.name} </th>
                             ))}
                         </tr>
                     </thead>

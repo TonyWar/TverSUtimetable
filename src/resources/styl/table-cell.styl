@@ -1,0 +1,38 @@
+td.cell
+    text-align center
+    vertical-align: middle
+    padding: 0 !important 
+        
+.subject
+    font-weight: bold
+
+.plus-minus
+    .week
+        position: relative;
+        top: calc(50% - 10px);
+        border-radius: 0 100% 100% 0 / 0 50% 50% 0;
+        height: 20px;
+        width: 12px;
+        line-height: 16px;
+        color: white;
+        font-weight: bold
+        &.plus
+            background-color: #4CAF50
+        &.minus
+            background-color: red
+
+.data
+    width: calc(100% - 12px)
+
+.data-container
+    display flex
+    flex-direction row
+
+.position
+    display inline-block
+    border-radius: 14px
+    background-color #e4e4e4
+    padding: 5px
+    color rgba(0,0,0,0.6)
+    font-size: 0.8rem
+    margin-bottom 5px

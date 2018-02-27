@@ -124,6 +124,7 @@ class DayLine extends Component {
         this.props.data.forEach((element, index) => {
             if (index > 0) {
                 if (element) {
+                    console.log(element.lessons)
                     const lessons = element.lessons
                     let count0 = 0
                     let count1 = 0
@@ -133,6 +134,7 @@ class DayLine extends Component {
                     })
                     if (count0 > rowSpan) {rowSpan = count0}
                     if (count1 > rowSpan) {rowSpan = count1}
+                    // ВМЕСТО ЭТОГО КОДА У АДМИНА ДОЛЖЕН БЫТЬ МОЗГ
                 }
             }
         })
@@ -158,11 +160,12 @@ class DayLine extends Component {
                     lessons.push(lesson)
                     // console.log('lesson for check', lesson)
                     // устанока colSpan
+                    // if (lesson && lesson.subject && lesson.subject.name === 'Введение в специальность')
+                    //     console.log('сравнение предметов', lesson, this.props.data[index])
                     if (lesson.subgroup === 0) {
                         lesson.colSpan = this.props.colSpans[index]
                         // если слева есть такой же предмет, то colSpan = 0
                         if (this.props.data[index - 1] && this.props.data[index - 1].lessons) {
-                            // console.log('слева есть предметы')
                             this.props.data[index - 1].lessons.forEach(tlesson => {
                                 // console.log('например ', tlesson)
                                 if ( 
