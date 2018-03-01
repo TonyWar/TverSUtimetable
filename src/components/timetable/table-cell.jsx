@@ -16,7 +16,7 @@ class TableCell extends Component {
                     {this.props.data.plus_minus !== '' && <p className='plus-minus' >{this.props.data.plus_minus}</p>}
                     {this.props.data.subject && <p className='subject' >{this.props.data.subject.name}</p>}
                     {this.props.data.teacher && <p>{this.props.data.teacher.fio}</p>}
-                    {this.props.data.auditory && <p className='position'> аудитория: {this.props.data.auditory.name} корпус: {this.props.data.auditory.housing}</p>}
+                    {this.props.data.auditory && <p className='position'> аудитория:&#160;{this.props.data.auditory.name} корпус:&#160;{this.props.data.auditory.housing}</p>}
                 </td>
             )
         }
@@ -31,12 +31,12 @@ class TableCell extends Component {
                 colSpan={this.props.colSpan} 
                 className='cell '
             >
-                <div className='data-container'> 
+                <div className='data-container horizontal-and-vertical-centering '> 
                     <div className='plus-minus' > <div className={weekClass}> {this.props.data.plus_minus} </div> </div>
-                    <div className='data' >
+                    <div className='data' style={{paddingRight: '5px'}}>
                         {this.props.data.subject && <p className='subject' >{this.props.data.subject.name}</p>}
                         {this.props.data.teacher && <p>{this.props.data.teacher.fio}</p>}
-                        {this.props.data.auditory && <p className='position'> аудитория: {this.props.data.auditory.name} <br/> корпус: {this.props.data.auditory.housing}</p>}
+                        {this.props.data.auditory && <p className='position'> аудитория:&#160;{this.props.data.auditory.name } корпус:&#160;{this.props.data.auditory.housing}</p>}
                     </div>
                 </div> 
             </td>
