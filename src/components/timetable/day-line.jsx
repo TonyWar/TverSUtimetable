@@ -124,7 +124,7 @@ class DayLine extends Component {
         this.props.data.forEach((element, index) => {
             if (index > 0) {
                 if (element) {
-                    console.log(element.lessons)
+                    // console.log(element.lessons)
                     const lessons = element.lessons
                     let count0 = 0
                     let count1 = 0
@@ -183,7 +183,24 @@ class DayLine extends Component {
                         if (lesson.colSpan !== 0) {
                             // добавляем ширину за счёт элементов справа
                             for (let hardIndex = index + 1; hardIndex < this.props.data.length; hardIndex++) {
-                                if (!this.props.data[hardIndex]) break
+                                // console.log(this.props.data[hardIndex], this.props.data[hardIndex])
+                                if (!this.props.data[hardIndex] || this.props.data[hardIndex].lessons.length === 0) break
+                                for (let i = 0; i < this.props.data[hardIndex].lessons.length; i++) {
+                                    const tlesson = this.props.data[hardIndex].lessons[i]
+                                    if (
+                                        (tlesson.auditory && lesson.auditory && lesson.auditory._id === tlesson.auditory._id || (!tlesson.auditory && !lesson.auditory))
+                                        && (tlesson.subject && lesson.subject && tlesson.subject._id === lesson.subject._id || (!tlesson.subject && !lesson.subject))
+                                        && (tlesson.teacher && lesson.teacher && tlesson.teacher._id === lesson.teacher._id || (!tlesson.teacher && !lesson.teacher))
+                                        && (tlesson.subgroup === lesson.subgroup)
+                                        && (tlesson.plus_minus === lesson.plus_minus)
+                                    ) {
+                                        // слева есть такой же предмет, значит здесть colspan ++
+                                        lesson.colSpan += this.props.colSpans[hardIndex]
+                                    } else {
+                                        break
+                                    }
+                                }
+                                /*
                                 this.props.data[hardIndex].lessons.forEach(tlesson => {
                                     // console.log('например ', tlesson)
                                     if ( 
@@ -197,6 +214,7 @@ class DayLine extends Component {
                                         lesson.colSpan += this.props.colSpans[hardIndex]
                                     }
                                 })
+                                */
                             }
                         }
                     }
