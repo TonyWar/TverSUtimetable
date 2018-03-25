@@ -53,7 +53,7 @@
     "webpack-merge": "^4.1.2"
   },
   "scripts": {
-    "start": "webpack-dev-server --progress --inline --hot",
+    "start": "webpack-dev-server --progress --inline --hot --content-base",
     "build": "react-scripts build",
     "dev": "SET NODE_ENV=development&& npm run start",
     "prod": "SET NODE_ENV=production&& webpack",

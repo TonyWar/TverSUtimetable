@@ -1,6 +1,4 @@
-const path = require('path')
 const webpack = require('webpack')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
     // Don't attempt to continue if there are any errors.
@@ -8,23 +6,6 @@ module.exports = {
     devtool: 'source-map',
     entry: ['./src/index.js'],
     plugins: [
-        new HtmlWebpackPlugin({
-            inject: true,
-            template: './src/index.html',
-            favicon: path.resolve(__dirname, '../src/resources/icons/favicon.ico'),
-            minify: {
-                removeComments: true,
-                collapseWhitespace: true,
-                removeRedundantAttributes: true,
-                useShortDoctype: true,
-                removeEmptyAttributes: true,
-                removeStyleLinkTypeAttributes: true,
-                keepClosingSlash: true,
-                minifyJS: true,
-                minifyCSS: true,
-                minifyURLs: true
-            }
-        }),
         new webpack.NoEmitOnErrorsPlugin(),
         new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.LoaderOptionsPlugin({
