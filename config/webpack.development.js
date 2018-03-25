@@ -1,7 +1,6 @@
-
-const path                     = require('path')
-const webpack                  = require('webpack')
-const HtmlWebpackPlugin        = require('html-webpack-plugin')
+const path = require('path')
+const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
 module.exports = {
     entry: [
