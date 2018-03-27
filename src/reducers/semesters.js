@@ -1,4 +1,4 @@
-import { FACULTY_CHANGED, FIRST_LOAD_PAGE_SUCCESS } from '../constants/action-types'
+import { FACULTY_CHANGED, FIRST_LOAD_PAGE_SUCCESS, FACULTY_UPDATED } from '../constants/action-types'
 
 const initialState = [
 
@@ -15,6 +15,7 @@ export default function semesters(state = initialState, action) {
                 })
             })
             return newState
+        case FACULTY_UPDATED:
         case FACULTY_CHANGED:
             action.payload.forEach(item => {
                 newState.push({

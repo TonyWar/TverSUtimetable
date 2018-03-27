@@ -1,4 +1,4 @@
-import { FIRST_LOAD_PAGE_SUCCESS, SEMESTER_CHANGED, COURCE_CHANGED, LEVEL_CHANGED, FACULTY_CHANGED, COURCE_UPDATED, LEVEL_UPDATED, SEMESTER_UPDATED } from '../constants/action-types'
+import { FIRST_LOAD_PAGE_SUCCESS, SEMESTER_CHANGED, COURCE_CHANGED, LEVEL_CHANGED, FACULTY_CHANGED, COURCE_UPDATED, LEVEL_UPDATED, SEMESTER_UPDATED, FACULTY_UPDATED } from '../constants/action-types'
 
 const initialState = {
 
@@ -14,6 +14,7 @@ export default function timetable(state = initialState, action) {
         case LEVEL_CHANGED:
         case FIRST_LOAD_PAGE_SUCCESS:
             return action.payload.timetable
+        case FACULTY_UPDATED:
         case FACULTY_CHANGED:
             return initialState
         default:

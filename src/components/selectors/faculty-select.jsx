@@ -1,13 +1,13 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import {changeField} from '../../actions/form-actions'
+import {updateField} from '../../actions/form-actions'
 
 class FacultySelect extends Component {
     handleChangeFaculty = e => {
         if (e.target.value === '-1') return
         const newCurrentFaculty = this.props.faculties[e.target.value]
-        this.props.changeField('faculty', newCurrentFaculty.abbr, newCurrentFaculty)
+        this.props.updateField('faculty', newCurrentFaculty.abbr, newCurrentFaculty)
     }
 
     indexOfCurrendFaculty = () => {
@@ -36,7 +36,7 @@ class FacultySelect extends Component {
     static propTypes = {
         faculties: PropTypes.array,
         selectedFaculty: PropTypes.string,
-        changeField: PropTypes.func
+        updateField: PropTypes.func
     }
 }
 
@@ -45,5 +45,5 @@ export default connect(
         faculties: state.faculties,
         selectedFaculty: state.formFields.faculty
     }),
-    {changeField}
+    {updateField}
 )(FacultySelect)

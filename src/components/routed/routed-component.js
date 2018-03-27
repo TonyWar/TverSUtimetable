@@ -84,17 +84,21 @@ class RoutedComponent extends Component {
                 this.setState({notFound: false})
             }
         }
+        if (Object.keys(this.props.timetable).length > 0) {
+            this.setState({notFound: false})
+        }
     }
 
     render() {
-        if (this.state.notFound) {
-            return <h1> Расписание с такими данными не найдено </h1>
+        let redirect = ''
+        let timetable = <h1 key={1}> Расписание с такими данными не найдено </h1>
+
+        if (!this.state.notFound && Object.keys(this.props.timetable).length > 0) {
+            timetable = <TimeTable key={1} />
         }
         const facultyURL = this.props.match.params.faculty
         const levelURL = this.props.match.params.level
-        const courseURL = this.props.match.params.course
-
-        let redirect = ''
+        const courseURL = this.props.match.params.course 
 
         if (this.props.formFields.faculty !== '-1' && this.props.formFields.level !== '-1' && this.props.formFields.course !== '-1'
             && (facultyURL !== this.props.formFields.faculty 
@@ -104,7 +108,7 @@ class RoutedComponent extends Component {
         }
         return [
             <Header key={0} />,
-            <TimeTable key={1} />,
+            timetable,
             redirect
         ]
     }
@@ -117,7 +121,8 @@ class RoutedComponent extends Component {
         levels: PropTypes.array,
         courses: PropTypes.array,
         formFields: PropTypes.object,
-        match: PropTypes.object
+        match: PropTypes.object,
+        timetable: PropTypes.object
     }
 }
 
@@ -127,7 +132,8 @@ export default connect(
         levels: state.levels,
         semesters: state.semesters,
         courses: state.courses,
-        formFields: state.formFields
+        formFields: state.formFields,
+        timetable: state.timetable
     }), 
     {changeField, loadFaculties, preloadPage}
 )(RoutedComponent)

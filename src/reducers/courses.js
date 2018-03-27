@@ -1,4 +1,4 @@
-import { FIRST_LOAD_PAGE_SUCCESS, LEVEL_CHANGED, FACULTY_CHANGED, LEVEL_UPDATED, SEMESTER_UPDATED } from '../constants/action-types'
+import { FIRST_LOAD_PAGE_SUCCESS, LEVEL_CHANGED, FACULTY_CHANGED, LEVEL_UPDATED, SEMESTER_UPDATED, FACULTY_UPDATED } from '../constants/action-types'
 
 const initialState = [
 ]
@@ -16,6 +16,7 @@ export default function courses(state = initialState, action) {
                 }
             })
             return newList
+        case FACULTY_UPDATED:
         case FACULTY_CHANGED:
             return initialState
         default:
