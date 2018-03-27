@@ -26,7 +26,7 @@ class CourseSelect extends Component {
             <div className='navbar-item' value={this.indexOfCurrentCourse()} onChange={this.handleChangeCourse}>
                 <select className='select' >
                     { this.props.courses.map((course, key) => (
-                        <option key={key} value={course}>{course + ' ' + this.props.fields.course}</option>
+                        <option key={key} value={course}>{course}</option>
                     ))}
                 </select>
             </div>
