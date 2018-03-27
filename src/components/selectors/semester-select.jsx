@@ -3,16 +3,16 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import {changeField} from '../../actions/form-actions'
 
+import { findCurrentFaculty } from '../../constants/functions'
+
 class SemesterSelect extends Component {
     handleChangeSemester = e => {
         if (e.target.value === '-1') return
         this.props.changeField('semester', e.target.value, {
-            ID: this.props.faculties[this.props.fields.faculty]._id,
+            ID: findCurrentFaculty(this.props.fields.faculty, this.props.faculties)._id,
             year: this.props.semesters[e.target.value].year,
             semester: this.props.semesters[e.target.value].semester
         })
-        localStorage.year = this.props.semesters[e.target.value].year
-        localStorage.semester = this.props.semesters[e.target.value].semester
     }
 
     render() {

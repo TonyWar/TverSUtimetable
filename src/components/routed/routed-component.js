@@ -10,6 +10,10 @@ import {preloadPage} from '../../actions/preload'
 
 import PropTypes from 'prop-types'
 
+import { findCurrentFaculty } from '../../constants/functions'
+
+import { Redirect } from 'react-router'
+
 class RoutedComponent extends Component {
     constructor(props) {
         super(props)
@@ -25,26 +29,16 @@ class RoutedComponent extends Component {
         console.log('Курс: ', this.props.match.params.course)
     }
 
-    findCurrentFaculty = (facultyURL, faculties) => {
-        for (let i = 0; i < faculties.length; i++) {
-            const faculty = faculties[i]
-            if (faculty.abbr === facultyURL) {
-                // для данного факультета запускаем action
-                return faculty
-            }
-        }
-        return null
-    }
-
     componentWillReceiveProps(nextProps) {
         const facultyURL = this.props.match.params.faculty
-        // console.log(this.props, nextProps)
+        // console.log(this.props.formFields.course, nextProps.formFields.course)
         // Случай когда сайт только открывается и данных пока нет вообще
         if (this.props.faculties.length === 0 && nextProps.faculties.length > 0) {
+            console.log('предзагрузка факультета по url')
             // Сейчас url показывает данные, которые нужно показать
             if (this.props.formFields.faculty !== facultyURL) {
                 // Поиск факультета по абрривеатуре
-                const faculty = this.findCurrentFaculty(facultyURL, nextProps.faculties)
+                const faculty = findCurrentFaculty(facultyURL, nextProps.faculties)
                 if (!faculty) { this.setState({notFound: true}) }
                 else {
                     this.props.changeField('faculty', facultyURL, faculty)
@@ -53,20 +47,22 @@ class RoutedComponent extends Component {
         }
         // мы получили список семестров в первый раз, поэтому должны подгрузить список курсов и уровни образования
         if (this.props.semesters.length === 0 && nextProps.semesters.length > 0) {
+            console.log('предзагрузка семестра по url')
             this.props.changeField('semester', '0', {
                 ...nextProps.semesters[0],
-                ID: this.findCurrentFaculty(facultyURL, this.props.faculties)._id
+                ID: findCurrentFaculty(facultyURL, this.props.faculties)._id
             })
             this.setState({notFound: false})
         }
         // Мы получили список level'ов (в первый раз), надо взять с URL нужный level
         if (this.props.levels.length === 0 && nextProps.levels.length > 0) {
+            console.log('предзагрузка уровня по url')
             const levelURL = this.props.match.params.level
             if (nextProps.levels.indexOf(levelURL) === -1) {
                 this.setState({notFound: true})
             } else {
                 this.props.changeField('level', levelURL, {
-                    ID: this.findCurrentFaculty(facultyURL, this.props.faculties)._id,
+                    ID: findCurrentFaculty(facultyURL, this.props.faculties)._id,
                     year: this.props.semesters[this.props.formFields.semester].year,
                     semester: this.props.semesters[this.props.formFields.semester].semester,
                     level: levelURL
@@ -77,11 +73,12 @@ class RoutedComponent extends Component {
         // Мы получили список курсов, подгружаем расписание для выбранного курса
         if (this.props.courses.length === 0 && nextProps.courses.length > 0) {
             const courseURL = this.props.match.params.course
+            console.log('предзагрузка курса по url')
             if (nextProps.courses.indexOf(courseURL) === -1) {
                 this.setState({notFound: true})
             } else {
                 this.props.changeField('course', courseURL, {
-                    ID: this.findCurrentFaculty(facultyURL, this.props.faculties)._id,
+                    ID: findCurrentFaculty(facultyURL, this.props.faculties)._id,
                     year: this.props.semesters[this.props.formFields.semester].year,
                     semester: this.props.semesters[this.props.formFields.semester].semester,
                     level: this.props.formFields.level,
@@ -95,6 +92,15 @@ class RoutedComponent extends Component {
     render() {
         if (this.state.notFound) {
             return <h1> Расписание с такими данными не найдено </h1>
+        }
+        const facultyURL = this.props.match.params.faculty
+        const levelURL = this.props.match.params.level
+        const courseURL = this.props.match.params.course
+        if (this.props.formFields.faculty !== '-1' && this.props.formFields.level !== '-1' && this.props.formFields.course !== '-1'
+            && (facultyURL !== this.props.formFields.faculty 
+            || levelURL !== this.props.formFields.level 
+            || courseURL !== this.props.formFields.course)) {
+            return <Redirect to={'/' + this.props.formFields.faculty + '/' + this.props.formFields.level + '/' + this.props.formFields.course} />
         }
         return [
             <Header key={0} />,

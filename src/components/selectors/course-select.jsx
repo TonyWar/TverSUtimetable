@@ -3,25 +3,26 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import {changeField} from '../../actions/form-actions'
 
+import { findCurrentFaculty } from '../../constants/functions'
+
 class CourseSelect extends Component {
     handleChangeCourse = e => {
         this.props.changeField('course', e.target.value, {
-            ID: this.props.faculties[this.props.fields.faculty]._id,
+            ID: findCurrentFaculty(this.props.fields.faculty, this.props.faculties)._id,
             year: this.props.semesters[this.props.fields.semester].year,
             semester: this.props.semesters[this.props.fields.semester].semester,
-            level: this.props.levels[this.props.fields.level],
-            course: this.props.courses[e.target.value]
+            level: this.props.fields.level,
+            course: e.target.value
         })
-        localStorage.course = this.props.courses[e.target.value]
     }
     
     render() {
         if (this.props.courses.length === 0) { return null }
         return (
-            <div className='navbar-item' value={this.props.fields.cource} onChange={this.handleChangeCourse}>
+            <div className='navbar-item' value={this.props.fields.course + ''} onChange={this.handleChangeCourse}>
                 <select className='select' >
                     { this.props.courses.map((course, key) => (
-                        <option key={key} value={key}>{course}</option>
+                        <option key={key} value={course}>{course}</option>
                     ))}
                 </select>
             </div>
