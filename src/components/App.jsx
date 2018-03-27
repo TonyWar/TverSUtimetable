@@ -31,7 +31,7 @@ class App extends Component {
                 <Router>
                     <Switch>
                         <Route exact path='/' component={PageComponent}/>
-                        {/* <Route exact path='/:faculty/:level/:course' component={RoutedComponent} /> */}
+                        <Route exact path='/:faculty/:level/:course' component={RoutedComponent} />
                         <Route path='*' component={PageNotFound}/>
                     </Switch>
                 </Router>

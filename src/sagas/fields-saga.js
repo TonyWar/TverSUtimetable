@@ -9,18 +9,19 @@ export function* fieldChanged(action) {
         switch (action.field) {
             case 'faculty':
                 response = yield call(Api.getTimetables, action.data._id)
-                yield put({type: ActionTypes.FACULTY_CHANGED, payload: response})
-                if (response.length > 0) {
-                    responseSemester = yield call(Api.getTimetable, response[0]._id.year, response[0]._id.semester, action.data._id)
-                    yield put({type: ActionTypes.SEMESTER_CHANGED, payload: responseSemester})
-                    yield put({type: ActionTypes.LEVEL_CHANGED, payload: responseSemester})
-                    yield put({type: ActionTypes.COURCE_CHANGED, payload: responseSemester})
-                }
+                yield put({type: ActionTypes.FACULTY_CHANGED, payload: response.reverse()})
+                // if (response.length > 0) {
+                //     responseSemester = yield call(Api.getTimetable, response[0]._id.year, response[0]._id.semester, action.data._id)
+                //     yield put({type: ActionTypes.SEMESTER_CHANGED, payload: responseSemester})
+                //     yield put({type: ActionTypes.LEVEL_CHANGED, payload: responseSemester})
+                //     yield put({type: ActionTypes.COURCE_CHANGED, payload: responseSemester})
+                // }
+                // console.log('дата для изменения факультета')
+                // console.log(action)
                 break
             case 'semester':
                 responseSemester = yield call(Api.getTimetable, action.data.year, action.data.semester, action.data.ID)
                 yield put({type: ActionTypes.SEMESTER_CHANGED, payload: responseSemester})
-                yield put({type: ActionTypes.LEVEL_CHANGED, payload: responseSemester})
                 break
             case 'level':
                 const responseLevel = yield call(Api.getTimetable, action.data.year, action.data.semester, action.data.ID, action.data.level)
