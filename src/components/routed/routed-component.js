@@ -26,12 +26,7 @@ class RoutedComponent extends Component {
         this.props.loadFaculties()
     }
 
-    componentDidMount() {
-        console.log('Компонент был примонтирован')
-    }
-
     componentWillReceiveProps(nextProps) {
-        // console.log('Были получены новые props: ', nextProps.formFields)
         const facultyURL = this.props.match.params.faculty
         // Случай когда сайт только открывается и данных пока нет вообще
         if (this.props.faculties.length === 0 && nextProps.faculties.length > 0) {
