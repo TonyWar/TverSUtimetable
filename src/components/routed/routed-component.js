@@ -24,17 +24,12 @@ class RoutedComponent extends Component {
 
     componentWillMount() {
         this.props.loadFaculties()
-        console.log('Факультет: ', this.props.match.params.faculty)
-        console.log('Уровень образования: ', this.props.match.params.level)
-        console.log('Курс: ', this.props.match.params.course)
     }
 
     componentWillReceiveProps(nextProps) {
         const facultyURL = this.props.match.params.faculty
-        // console.log(this.props.formFields.course, nextProps.formFields.course)
         // Случай когда сайт только открывается и данных пока нет вообще
         if (this.props.faculties.length === 0 && nextProps.faculties.length > 0) {
-            console.log('предзагрузка факультета по url')
             // Сейчас url показывает данные, которые нужно показать
             if (this.props.formFields.faculty !== facultyURL) {
                 // Поиск факультета по абрривеатуре
@@ -47,7 +42,6 @@ class RoutedComponent extends Component {
         }
         // мы получили список семестров в первый раз, поэтому должны подгрузить список курсов и уровни образования
         if (this.props.semesters.length === 0 && nextProps.semesters.length > 0) {
-            console.log('предзагрузка семестра по url')
             this.props.changeField('semester', '0', {
                 ...nextProps.semesters[0],
                 ID: findCurrentFaculty(facultyURL, this.props.faculties)._id
@@ -56,7 +50,6 @@ class RoutedComponent extends Component {
         }
         // Мы получили список level'ов (в первый раз), надо взять с URL нужный level
         if (this.props.levels.length === 0 && nextProps.levels.length > 0) {
-            console.log('предзагрузка уровня по url')
             const levelURL = this.props.match.params.level
             if (nextProps.levels.indexOf(levelURL) === -1) {
                 this.setState({notFound: true})
@@ -73,7 +66,6 @@ class RoutedComponent extends Component {
         // Мы получили список курсов, подгружаем расписание для выбранного курса
         if (this.props.courses.length === 0 && nextProps.courses.length > 0) {
             const courseURL = this.props.match.params.course
-            console.log('предзагрузка курса по url')
             if (nextProps.courses.indexOf(courseURL) === -1) {
                 this.setState({notFound: true})
             } else {

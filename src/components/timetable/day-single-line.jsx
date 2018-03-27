@@ -5,7 +5,6 @@ import DayLineDirection from './day-line-direction'
 class DaySingleLine extends Component {
     render() {
         const {lineNumber, rowSpan, data, colSpans} = this.props
-        // console.log(lineNumber, data)
         return (
             <tr>
                 {data[lineNumber].map((item, key) => (

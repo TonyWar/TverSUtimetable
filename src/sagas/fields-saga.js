@@ -16,8 +16,6 @@ export function* fieldChanged(action) {
                 //     yield put({type: ActionTypes.LEVEL_CHANGED, payload: responseSemester})
                 //     yield put({type: ActionTypes.COURCE_CHANGED, payload: responseSemester})
                 // }
-                // console.log('дата для изменения факультета')
-                // console.log(action)
                 break
             case 'semester':
                 responseSemester = yield call(Api.getTimetable, action.data.year, action.data.semester, action.data.ID)
