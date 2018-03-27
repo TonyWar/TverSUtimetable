@@ -1,14 +1,14 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import {changeField} from '../../actions/form-actions'
+import {updateField} from '../../actions/form-actions'
 
 import { findCurrentFaculty } from '../../constants/functions'
 
 class SemesterSelect extends Component {
     handleChangeSemester = e => {
         if (e.target.value === '-1') return
-        this.props.changeField('semester', e.target.value, {
+        this.props.updateField('semester', e.target.value, {
             ID: findCurrentFaculty(this.props.fields.faculty, this.props.faculties)._id,
             year: this.props.semesters[e.target.value].year,
             semester: this.props.semesters[e.target.value].semester
@@ -32,7 +32,7 @@ class SemesterSelect extends Component {
     static propTypes = {
         semesters: PropTypes.array,
         fields: PropTypes.object,
-        changeField: PropTypes.func,
+        updateField: PropTypes.func,
         faculties: PropTypes.array
     }
 }
@@ -43,5 +43,5 @@ export default connect(
         semesters: state.semesters,
         fields: state.formFields
     }),
-    { changeField }
+    { updateField }
 )(SemesterSelect)

@@ -16,13 +16,17 @@ class CourseSelect extends Component {
         })
     }
     
+    indexOfCurrentCourse = () => {
+        return this.props.fields.course
+    }
+
     render() {
         if (this.props.courses.length === 0) { return null }
         return (
-            <div className='navbar-item' value={this.props.fields.course + ''} onChange={this.handleChangeCourse}>
+            <div className='navbar-item' value={this.indexOfCurrentCourse()} onChange={this.handleChangeCourse}>
                 <select className='select' >
                     { this.props.courses.map((course, key) => (
-                        <option key={key} value={course}>{course}</option>
+                        <option key={key} value={course}>{course + ' ' + this.props.fields.course}</option>
                     ))}
                 </select>
             </div>
