@@ -36,3 +36,38 @@ export function* fieldChanged(action) {
         yield put({ type: ActionTypes.CHANGINT_FAILED, message: e.message })
     }
 }
+
+export function* fieldUpdate(action) {
+    try {
+        let response
+        let responseSemester
+        switch (action.field) {
+            case 'faculty':
+                response = yield call(Api.getTimetables, action.data._id)
+                yield put({type: ActionTypes.FACULTY_UPDATED, payload: response.reverse()})
+                // if (response.length > 0) {
+                //     responseSemester = yield call(Api.getTimetable, response[0]._id.year, response[0]._id.semester, action.data._id)
+                //     yield put({type: ActionTypes.SEMESTER_CHANGED, payload: responseSemester})
+                //     yield put({type: ActionTypes.LEVEL_CHANGED, payload: responseSemester})
+                //     yield put({type: ActionTypes.COURCE_CHANGED, payload: responseSemester})
+                // }
+                break
+            case 'semester':
+                responseSemester = yield call(Api.getTimetable, action.data.year, action.data.semester, action.data.ID)
+                yield put({type: ActionTypes.SEMESTER_UPDATED, payload: responseSemester})
+                break
+            case 'level':
+                const responseLevel = yield call(Api.getTimetable, action.data.year, action.data.semester, action.data.ID, action.data.level)
+                yield put({type: ActionTypes.LEVEL_UPDATED, payload: responseLevel})
+                break
+            case 'course':
+                const responseCourse = yield call(Api.getTimetable, action.data.year, action.data.semester, action.data.ID, action.data.level, action.data.course)
+                yield put({type: ActionTypes.COURCE_UPDATED, payload: responseCourse})
+                break
+            default:
+                break
+        }
+    } catch (e) {
+        yield put({ type: ActionTypes.UPDATING_FAILED, message: e.message })
+    }
+}

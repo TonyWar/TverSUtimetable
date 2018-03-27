@@ -8,4 +8,5 @@ export default function* root() {
     yield takeEvery(ActionTypes.LOAD_FACULTIES_REQUEST, LoadSaga.loadFaculties)
     yield takeEvery(ActionTypes.FIRST_LOAD_PAGE, PreloadSaga.preparePage)
     yield takeEvery(ActionTypes.CHANGE_FIELD_VALUE, FieldsSaga.fieldChanged)
+    yield takeEvery(ActionTypes.UPDATE_FIELD_VALUE, FieldsSaga.fieldUpdate)
 }

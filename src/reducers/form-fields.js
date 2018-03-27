@@ -1,4 +1,4 @@
-import { FIRST_LOAD_PAGE_SUCCESS, CHANGE_FIELD_VALUE } from '../constants/action-types'
+import { FIRST_LOAD_PAGE_SUCCESS, CHANGE_FIELD_VALUE, UPDATE_FIELD_VALUE, LEVEL_UPDATED } from '../constants/action-types'
 
 const initialState = {
     faculty: '-1',
@@ -31,6 +31,16 @@ export default function formFields(state = initialState, action) {
             return {
                 ...state,
                 [action.field]: action.value
+            }
+        case UPDATE_FIELD_VALUE:
+            return {
+                ...state,
+                [action.field]: action.value
+            }
+        case LEVEL_UPDATED:
+            return {
+                ...state,
+                course: action.payload.courses[0] ? (action.payload.courses[0] + '') : '-1'
             }
         default:
             return state

@@ -26,7 +26,12 @@ class RoutedComponent extends Component {
         this.props.loadFaculties()
     }
 
+    componentDidMount() {
+        console.log('Компонент был примонтирован')
+    }
+
     componentWillReceiveProps(nextProps) {
+        // console.log('Были получены новые props: ', nextProps.formFields)
         const facultyURL = this.props.match.params.faculty
         // Случай когда сайт только открывается и данных пока нет вообще
         if (this.props.faculties.length === 0 && nextProps.faculties.length > 0) {
@@ -88,15 +93,19 @@ class RoutedComponent extends Component {
         const facultyURL = this.props.match.params.faculty
         const levelURL = this.props.match.params.level
         const courseURL = this.props.match.params.course
+
+        let redirect = ''
+
         if (this.props.formFields.faculty !== '-1' && this.props.formFields.level !== '-1' && this.props.formFields.course !== '-1'
             && (facultyURL !== this.props.formFields.faculty 
             || levelURL !== this.props.formFields.level 
             || courseURL !== this.props.formFields.course)) {
-            return <Redirect to={'/' + this.props.formFields.faculty + '/' + this.props.formFields.level + '/' + this.props.formFields.course} />
+            redirect = <Redirect key={2} to={'/' + this.props.formFields.faculty + '/' + this.props.formFields.level + '/' + this.props.formFields.course} />
         }
         return [
             <Header key={0} />,
-            <TimeTable key={1} />
+            <TimeTable key={1} />,
+            redirect
         ]
     }
 
