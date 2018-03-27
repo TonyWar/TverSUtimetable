@@ -86,10 +86,10 @@ class RoutedComponent extends Component {
 
     render() {
         let redirect = ''
-        let timetable = <h1 key={1}> Расписание с такими данными не найдено </h1>
+        let timetable = <h1 key={2}> Расписание с такими данными не найдено </h1>
 
         if (!this.state.notFound && Object.keys(this.props.timetable).length > 0) {
-            timetable = <TimeTable key={1} />
+            timetable = <TimeTable key={2} />
         }
         const facultyURL = this.props.match.params.faculty
         const levelURL = this.props.match.params.level
@@ -99,10 +99,11 @@ class RoutedComponent extends Component {
             && (facultyURL !== this.props.formFields.faculty 
             || levelURL !== this.props.formFields.level 
             || courseURL !== this.props.formFields.course)) {
-            redirect = <Redirect key={2} to={'/' + this.props.formFields.faculty + '/' + this.props.formFields.level + '/' + this.props.formFields.course} />
+            redirect = <Redirect key={3} to={'/' + this.props.formFields.faculty + '/' + this.props.formFields.level + '/' + this.props.formFields.course} />
         }
         return [
-            <Header key={0} />,
+            <div key={0} className='hero' style={{height: '55px', width: '100%'}}/>,
+            <Header key={1} />,
             timetable,
             redirect
         ]

@@ -14,7 +14,10 @@ class Header extends Component {
     }
     render() {
         return (
-            <div className='hero'> 
+            <div className='hero' style={{ position: 'fixed',
+                backgroundColor: 'white',
+                color: 'black',
+                width: '100%', top: '0'}}> 
                 <div className='hero-head'> 
                     <nav className='navbar'>
                         <div className='container'>

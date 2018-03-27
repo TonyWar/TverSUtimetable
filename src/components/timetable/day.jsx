@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import DayHeader from './day-header'
 import DayLine from './day-line'
+import '../../resources/styl/style.styl'
 
 class DayTimetable extends Component {
     constructor(props) {
@@ -34,10 +35,10 @@ class DayTimetable extends Component {
             }
         }
 
-        return (
-            <div>
+        return [
+            <div key={0} className='my-flex-container'>
                 <DayHeader title={this.props.title} />
-                <table className='table is-bordered is-fullwidth'> 
+                <table className='table is-bordered is-fullwidth my-flexbox-child-table'> 
                     <thead>
                         <tr>
                             <th />
@@ -65,8 +66,9 @@ class DayTimetable extends Component {
                         ))}
                     </tbody>
                 </table>
-            </div>
-        )
+            </div>,
+            <div className='bottom-line' key={1}/>
+        ]
     }
 
     static propTypes = {
