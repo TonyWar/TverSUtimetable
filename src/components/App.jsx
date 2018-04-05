@@ -12,8 +12,6 @@ import PageComponent from './default/page-component'
 import PageNotFound from './404'
 import RoutedComponent from './routed/routed-component'
 
-import '../resources/css/main.css'
-
 const sagaMiddleware = createSagaMiddleware()
 
 const store = createStore(

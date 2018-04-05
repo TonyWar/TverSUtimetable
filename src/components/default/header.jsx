@@ -5,7 +5,7 @@ import SemesterSelect from '../selectors/semester-select'
 import LevelSelect from '../selectors/level-select'
 import CourseSelect from '../selectors/course-select'
 
-
+import '../../resources/css/main.css'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 class Header extends Component {
