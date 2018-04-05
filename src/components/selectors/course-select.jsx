@@ -29,11 +29,6 @@ class CourseSelect extends Component {
                         <button key={key} className={'button ' + (this.indexOfCurrentCourse() === course ? 'is-info' : '')} onClick={this.handleChangeCourse} >{course}</button>
                     ))
                 }
-                {/* <select className='select' value={this.indexOfCurrentCourse()} onChange={this.handleChangeCourse}>
-                    { this.props.courses.map((course, key) => (
-                        <option key={key} value={course}>{course}</option>
-                    ))}
-                </select> */}
             </div>
         )
     }
