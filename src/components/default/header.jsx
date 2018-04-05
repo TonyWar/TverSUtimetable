@@ -37,7 +37,7 @@ class Header extends Component {
                         <div className='container'>
                             <div className='navbar-brand'>
                                 <a className='navbar-item'>
-                                    <h1> ТвГУ </h1>
+                                    <div className='site-logo'/>
                                 </a>
                                 <span className={'navbar-burger burger' + (this.state.menuIsActive ? ' is-active' : '')} data-target='navbarMenuHeroA' onClick={()=> this.setState({menuIsActive: !this.state.menuIsActive})}>
                                     <span />
