@@ -41,7 +41,7 @@ class DayTimetable extends Component {
                 <table className='table is-bordered is-fullwidth my-flexbox-child-table'> 
                     <thead>
                         <tr>
-                            <th />
+                            <th style={{ height: '0px', padding: '0'}}/>
                             {this.props.directions.map((direction, key) => (
                                 <th key={key} colSpan={colSpans[key + 1]} style={{textAlign: 'center'}} > {direction.name} </th>
                             ))}

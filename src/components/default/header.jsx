@@ -5,6 +5,9 @@ import SemesterSelect from '../selectors/semester-select'
 import LevelSelect from '../selectors/level-select'
 import CourseSelect from '../selectors/course-select'
 
+
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 class Header extends Component {
     constructor(props) {
         super(props)
@@ -13,11 +16,22 @@ class Header extends Component {
         }
     }
     render() {
+        const colSpans = [1]
+        this.props.directions.forEach(element => {
+            colSpans.push(1)    
+        })
+
+        const crutch = []
+        for (let i = 1; i < colSpans.length; i++) {
+            for (let j = 0; j < colSpans[i]; j++) {
+                crutch.push(colSpans[i])
+            }
+        }
         return (
             <div className='hero' style={{ position: 'fixed',
                 backgroundColor: 'white',
                 color: 'black',
-                width: '100%', top: '0'}}> 
+                width: '100%', top: '0', height: '55px', zIndex: '50'}}> 
                 <div className='hero-head'> 
                     <nav className='navbar'>
                         <div className='container'>
@@ -45,6 +59,15 @@ class Header extends Component {
             </div>
         )
     }
-}
 
-export default Header
+    static propTypes = {
+        timetable: PropTypes.object,
+        directions: PropTypes.array
+    }
+}
+export default connect(
+    state => ({
+        timetable: state.timetable,
+        directions: state.directions
+    })
+)(Header)

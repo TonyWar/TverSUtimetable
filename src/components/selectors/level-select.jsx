@@ -23,8 +23,8 @@ class LevelSelect extends Component {
         if (this.props.levels.length === 0) { return null }
         const selectedField = this.indexOfCurrentLevel()
         return (
-            <div className='navbar-item' value={selectedField} onChange={this.handleChangeLevel}>
-                <select className='select' >
+            <div className='navbar-item'>
+                <select className='select' value={selectedField} onChange={this.handleChangeLevel}>
                     { this.props.levels.map((level, key) => (
                         <option key={key} value={key + ''} > {level} </option>
                     ))}
