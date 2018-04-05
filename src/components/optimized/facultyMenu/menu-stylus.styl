@@ -1,0 +1,29 @@
+
+$button-color = #8cbee6c4
+
+.faculties-menu-page
+    .grid
+        display: grid
+
+        &.grid__section
+            grid-template-columns: repeat(3, 1fr)
+            grid-gap: 50px
+            background-size: cover
+            background-position: center
+            position relative
+            a.grid__section__item
+                text-align center
+                align-content: center
+                color: black
+                background-color $button-color
+                vertical-align: middle
+                display: grid
+                align-content: center
+                transition: background-color 0.5s ease
+                min-height: 100px
+                &:hover
+                    background-color darken($button-color, 20%)
+                div
+                    color: black
+                    
+

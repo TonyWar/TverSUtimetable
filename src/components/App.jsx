@@ -8,9 +8,9 @@ import root from '../sagas/root'
 
 import 'bulma'
 
-import PageComponent from './default/page-component'
 import PageNotFound from './404'
 import RoutedComponent from './routed/routed-component'
+import FacultiesPage from './optimized/facultyMenu/facultyMenu'
 
 const sagaMiddleware = createSagaMiddleware()
 
@@ -30,7 +30,7 @@ class App extends Component {
             <Provider store={store}>
                 <Router>
                     <Switch>
-                        <Route exact path='/' component={PageComponent}/>
+                        <Route exact path='/' component={FacultiesPage}/>
                         <Route exact path='/:faculty/:level/:course' component={RoutedComponent} />
                         <Route path='*' component={PageNotFound}/>
                     </Switch>
