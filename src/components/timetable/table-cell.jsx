@@ -16,7 +16,7 @@ class TableCell extends Component {
                     {this.props.data.plus_minus !== '' && <p className='plus-minus' >{this.props.data.plus_minus}</p>}
                     {this.props.data.subject && <p className='subject' >{this.props.data.subject.name}</p>}
                     {this.props.data.teacher && <p>{this.props.data.teacher.fio}</p>}
-                    {this.props.data.auditory && <p className='position'> аудитория:&#160;{this.props.data.auditory.name} корпус:&#160;{this.props.data.auditory.housing}</p>}
+                    {this.props.data.auditory && <p className='position'> &#160;{this.props.data.auditory.name} (корп.&#160;{this.props.data.auditory.housing})</p>}
                 </td>
             )
         }
@@ -36,7 +36,7 @@ class TableCell extends Component {
                     <div className='data' style={{paddingRight: '5px'}}>
                         {this.props.data.subject && <p className='subject' >{this.props.data.subject.name}</p>}
                         {this.props.data.teacher && <p>{this.props.data.teacher.fio}</p>}
-                        {this.props.data.auditory && <p className='position'> аудитория:&#160;{this.props.data.auditory.name } корпус:&#160;{this.props.data.auditory.housing}</p>}
+                        {this.props.data.auditory && <p className='position'> &#160;{this.props.data.auditory.name } (корп.&#160;{this.props.data.auditory.housing})</p>}
                     </div>
                 </div> 
             </td>
